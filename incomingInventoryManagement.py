@@ -4,16 +4,16 @@ from datetime import date
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 database = client["Perishable_food_management_system"]
-stockTable = database["stock"]
+stockTable = database["Stock"]
 quantityTable = database["Quantity"]
 transactionTable = database["Transaction"]
 
 
 def incomingInventoryManagement():
 
-  productName, productSerial, batchNo, sellerName, quantity, price, inDate, expiryDate, existingQuantity = "", "", 0,"","","","","", 0
+  productName, productSerial, batchNo, sellerName, quantity, price, inDate, expiryDate, existingQuantity = "", "", 0,"",50,"","","", 0
 
-  productSerial = "TP100"
+  productSerial = "SP200"
 
   serialFind = stockTable.find({"ProductID":productSerial})
   quantityFind = quantityTable.find({"ProductID":productSerial})
@@ -23,13 +23,18 @@ def incomingInventoryManagement():
   if (len(checkSerialFind) == 0):  #check if product doesnt exist
     batchNo = 1
   else:
-    for x in serialFind:
+    for x in stockTable.find({"ProductID":productSerial}):
       batchNo = int(x['BatchNo'])
+      print("test")
       existingQuantity = existingQuantity + int(x['Quantity'])
     batchNo = batchNo + 1
+    print(existingQuantity)
+    print(batchNo)
 
   for x in quantityFind:
     maxQuantity = int(x['ToatalQuantity'])
+
+  print(maxQuantity)
 
   if existingQuantity + quantity < maxQuantity:
     print("Inserting into DB")
