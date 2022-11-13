@@ -30,7 +30,7 @@ def incomingInventoryManagement():
         for x in quantityFind:
             maxQuantity = int(x['ToatalQuantity'])
 
-        if existingQuantity + quantity < maxQuantity:
+        if existingQuantity + int(quantity) < maxQuantity:
             print("Inserting into DB")
             stockTable.insert_one({
                 "ProductID": productSerial,
@@ -55,7 +55,4 @@ def incomingInventoryManagement():
         else:
             print("Warehouse Full")
     else:
-        # add new product
-
-        # if __name__ == "__main__":
-        #     incomingInventoryManagement()
+        print("add new product")

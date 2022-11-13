@@ -8,7 +8,7 @@ database = client["Perishable_food_management_system"]
 stockTable = database["Stock"]
 quantityTable = database["Quantity"]
 transactionTable = database["Transaction"]
-remainderTable = database["Remaider"]
+remainderTable = database["SmartReminder"]
 
 
 def outgoiningManagement():
@@ -16,16 +16,16 @@ def outgoiningManagement():
     bufferBatchDictionary = []
     availableQuantity = 0
 
-    productFind = stockTable.find({"ProductID": productSerial})
-    productFindList = list(productFind)
+    productSerial = "SN454"
 
-    if(len(productFindList) != 0):
-        for x in productFind:
+    # productFind = stockTable.find({"ProductID": productSerial})
+
+    if(len(list(stockTable.find({"ProductID": productSerial}))) != 0):
+        for x in stockTable.find({"ProductID": productSerial}):
             availableQuantity = availableQuantity+int(x["Quantity"])
 
         if(availableQuantity >= requiredQuantity):
-
-            for x in productFind:
+            for x in stockTable.find({"ProductID": productSerial}):
                 if(int(x["Quantity"]) >= requiredQuantity):
                     bufferQuantity = int(x["Quantity"])-requiredQuantity
                     if (bufferQuantity == 0):
@@ -84,18 +84,22 @@ def outgoiningManagement():
     else:
         print("This product doesnot exist")
 
-        # if(quantityFind > quantity):
-        #     for x in productFind:
-        #         batch = int(x["BatchNo"])
-        #         bufferQuantity = int(x["Quantity"])
 
-        #         if(int(x["Quantity"]) >= requiredQuantity):
-        #             buffer = bufferQuantity-requiredQuantity
-        #             stockTable.update_one(
-        #                 {"Quantity": bufferQuantity}, {"$set": {"Quantity": buffer}})
-        #             transactionTable.update_one(
-        #                 {"Quantity": bufferQuantity}, {"$set": {"Quantity": buffer}})
-        #         else:
+if __name__ == "__main__":
+    outgoiningManagement()
+
+    # if(quantityFind > quantity):
+    #     for x in productFind:
+    #         batch = int(x["BatchNo"])
+    #         bufferQuantity = int(x["Quantity"])
+
+    #         if(int(x["Quantity"]) >= requiredQuantity):
+    #             buffer = bufferQuantity-requiredQuantity
+    #             stockTable.update_one(
+    #                 {"Quantity": bufferQuantity}, {"$set": {"Quantity": buffer}})
+    #             transactionTable.update_one(
+    #                 {"Quantity": bufferQuantity}, {"$set": {"Quantity": buffer}})
+    #         else:
 
 
 # for x in productFind:

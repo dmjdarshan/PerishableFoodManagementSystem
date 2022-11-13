@@ -1,5 +1,6 @@
 import pymongo
 from datetime import date
+import dayDifference
 
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -7,12 +8,12 @@ database = client["Perishable_food_management_system"]
 stockTable = database["Stock"]
 quantityTable = database["Quantity"]
 transactionTable = database["Transaction"]
-remainderTable = database["Remaider"]
+remainderTable = database["SmartReminder"]
 
 
 def batchManagement():
     for x in stockTable.find():
-        current = date.strptime(date.today(), "%d-%m-%Y")
+        current = date.strftime(date.today(), "%d-%m-%Y")
 
         expiry = x["ExpiryDate"]
         price = int(x["Price"])
@@ -21,9 +22,8 @@ def batchManagement():
         quantity = x["Quantity"]
         batchNo = x["BatchNo"]
 
-        expiry = date.strptime(expiry, "%d-%m-%Y")
-
-        if(abs(expiry-current) <= 1):
+        if(abs(dayDifference.numberOfDays(dayDifference.Date(current), dayDifference.Date(expiry))) <= 1):
+            print("Entered first")
             stockTable.delete_one(x)
 
             transactionTable.insert_one({
@@ -31,12 +31,12 @@ def batchManagement():
                 "BatchNo": batchNo,
                 "Quantity": quantity,
                 "Price": price,
-                "InDate": date.today(),
+                "InDate": date.today().strftime("%d-%m-%Y"),
                 "OutDate": "",
                 "Status": "WASTE"
             })
 
-        if(abs(expiry-current) <= 7):
+        if(abs(dayDifference.numberOfDays(dayDifference.Date(current), dayDifference.Date(expiry))) <= 7):
             price = price/2
             stockTable.update_one(
                 {"Price": x["Price"]}, {"$set": {"Price": price}})
@@ -47,6 +47,10 @@ def batchManagement():
                 "ProductName": productName,
                 "ExpiryDate": expiry
             })
+
+
+if __name__ == "__main__":
+    batchManagement()
 
     # expiryFind = stockTable.find({"ExpiryDate"})
     # priceFind = stockTable.find({"Price"})
@@ -61,13 +65,13 @@ def batchManagement():
 
     #     }
 
-        # if(abs(expiry-curent) <= 7):
-        # {
-        #     print("yes")
-        # }
-        # else:
-        # print("give remainder")
-        # remainderTable.insert_one({
-        #     "ProductID": productSerial,
-        #     "ProductName": productName,
-        # })
+    # if(abs(expiry-curent) <= 7):
+    # {
+    #     print("yes")
+    # }
+    # else:
+    # print("give remainder")
+    # remainderTable.insert_one({
+    #     "ProductID": productSerial,
+    #     "ProductName": productName,
+    # })
