@@ -51,27 +51,3 @@ def batchManagement():
 
 if __name__ == "__main__":
     batchManagement()
-
-    # expiryFind = stockTable.find({"ExpiryDate"})
-    # priceFind = stockTable.find({"Price"})
-
-    # curent = date.strptime(date.today(), "%Y/%m/%d")
-
-    # for x in expiryFind:
-    #     expiry = date.strptime(x, "%Y/%m/%d")
-
-    #     if(abs(expiry-curent) <= 1):
-    #     {
-
-    #     }
-
-    # if(abs(expiry-curent) <= 7):
-    # {
-    #     print("yes")
-    # }
-    # else:
-    # print("give remainder")
-    # remainderTable.insert_one({
-    #     "ProductID": productSerial,
-    #     "ProductName": productName,
-    # })

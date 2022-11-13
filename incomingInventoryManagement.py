@@ -13,7 +13,7 @@ def incomingInventoryManagement():
 
   productName, productSerial, batchNo, sellerName, quantity, price, inDate, expiryDate, existingQuantity = "", "", 0,"",50,"","","", 0
 
-  productSerial = "SP200"
+  productSerial = "VG501"
 
   serialFind = stockTable.find({"ProductID":productSerial})
   quantityFind = quantityTable.find({"ProductID":productSerial})
@@ -32,7 +32,7 @@ def incomingInventoryManagement():
     print(batchNo)
 
   for x in quantityFind:
-    maxQuantity = int(x['ToatalQuantity'])
+    maxQuantity = int(x['MaxQuantity'])
 
   print(maxQuantity)
 
