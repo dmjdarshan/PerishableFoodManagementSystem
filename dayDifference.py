@@ -59,4 +59,4 @@ def numberOfDays(dt1, dt2):
     n2 += countLeapYears(dt2)
 
     # return difference between two counts
-    return int(n2 - n1)
+    return (int(n2 - n1))
