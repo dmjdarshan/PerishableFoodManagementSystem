@@ -18,13 +18,18 @@ def incomingInventoryManagement():
   serialFind = stockTable.find({"ProductID":productSerial})
   quantityFind = quantityTable.find({"ProductID":productSerial})
 
-  for x in serialFind:
+  checkSerialFind = list(serialFind)
+
+  if (len(checkSerialFind) == 0):  #check if product doesnt exist
+    batchNo = 1
+  else:
+    for x in serialFind:
+      batchNo = int(x['BatchNo'])
+      existingQuantity = existingQuantity + int(x['Quantity'])
     batchNo = batchNo + 1
-    existingQuantity = existingQuantity + int(x['Quantity'])
-  batchNo = batchNo + 1
 
   for x in quantityFind:
-    maxQuantity = x['ToatalQuantity']
+    maxQuantity = int(x['ToatalQuantity'])
 
   if existingQuantity + quantity < maxQuantity:
     print("Inserting into DB")
@@ -35,7 +40,7 @@ def incomingInventoryManagement():
       "SellerName" : sellerName,
       "Quantity" : quantity,
       "Price": price,
-      "InDate" : date.today(),
+      "InDate" : date.today().strftime('%d-%m-%Y'),
       "ExpiryDate": expiryDate
     })
     transactionTable.insert_one({
@@ -43,7 +48,7 @@ def incomingInventoryManagement():
       "BatchNo" : batchNo,
       "Quantity" : quantity,
       "Price": price,
-      "InDate" : date.today(),
+      "InDate" : date.today().strftime('%d-%m-%Y'),
       "OutDate": "",
       "Status" : "Buy"
     })
