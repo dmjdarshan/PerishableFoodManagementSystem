@@ -332,9 +332,13 @@
    'C:\\Users\\Dharshan M '
    'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\ast.py',
    'PYMODULE'),
-  ('stringprep',
+  ('tracemalloc',
    'C:\\Users\\Dharshan M '
-   'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\stringprep.py',
+   'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\tracemalloc.py',
+   'PYMODULE'),
+  ('_py_abc',
+   'C:\\Users\\Dharshan M '
+   'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\_py_abc.py',
    'PYMODULE'),
   ('getpass',
    'C:\\Users\\Dharshan M '
@@ -376,16 +380,16 @@
    'C:\\Users\\Dharshan M '
    'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\http\\client.py',
    'PYMODULE'),
-  ('_py_abc',
+  ('stringprep',
    'C:\\Users\\Dharshan M '
-   'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\_py_abc.py',
-   'PYMODULE'),
-  ('tracemalloc',
-   'C:\\Users\\Dharshan M '
-   'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\tracemalloc.py',
+   'Jain\\AppData\\Local\\Programs\\Python\\Python310\\lib\\stringprep.py',
    'PYMODULE'),
   ('home',
    'E:\\DARSHAN BTECH\\V sem\\SE\\PerishableFoodManagementSystem\\home.py',
+   'PYMODULE'),
+  ('overviewUI',
+   'E:\\DARSHAN BTECH\\V '
+   'sem\\SE\\PerishableFoodManagementSystem\\overviewUI.py',
    'PYMODULE'),
   ('batchManagement',
    'E:\\DARSHAN BTECH\\V '
@@ -397,6 +401,10 @@
    'PYMODULE'),
   ('addNewUI',
    'E:\\DARSHAN BTECH\\V sem\\SE\\PerishableFoodManagementSystem\\addNewUI.py',
+   'PYMODULE'),
+  ('addNewSpace',
+   'E:\\DARSHAN BTECH\\V '
+   'sem\\SE\\PerishableFoodManagementSystem\\addNewSpace.py',
    'PYMODULE'),
   ('outgoingUI',
    'E:\\DARSHAN BTECH\\V '
