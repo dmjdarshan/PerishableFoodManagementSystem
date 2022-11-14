@@ -12,21 +12,21 @@ remainderTable = database["SmartReminder"]
 
 bufferBatchDictionary = []
 
-def outgoiningManagement():
-    productName, productSerial, batchNo, buyerName, quantity, price, inDate, expiryDate, requiredQuantity = "", "", 0, "", "", "", "", "", 20
+def outgoingManagement(productSerial, requiredQuantity, buyerName):
+    productName, batchNo, quantity, price, inDate, expiryDate = "", "", "", "", "", ""
     bufferBatchDictionary = []
     availableQuantity = 0
 
-    productSerial = "VG500"
+    # productSerial = "VG500"
 
     if(len(list(stockTable.find({"ProductID": productSerial}))) != 0):
         print("product is there")
         for x in stockTable.find({"ProductID": productSerial}):
             availableQuantity = availableQuantity+int(x["Quantity"])
         print("Available Quantity:", availableQuantity)
-        if(availableQuantity >= requiredQuantity):
+        if(int(availableQuantity) >= int(requiredQuantity)):
             print("Quantity is there")
-            bufferQuantity = requiredQuantity
+            bufferQuantity = int(requiredQuantity)
             while bufferQuantity!=0:
                 stockRow = stockTable.find_one({'ProductID':productSerial})
                 if (abs(bufferQuantity - int(stockRow['Quantity'])) == 0):
@@ -81,12 +81,16 @@ def outgoiningManagement():
                         bufferBatchDictionary.append(
                                 {'BatchNo': stockRow['BatchNo'], 'Quantity': stockRow['Quantity']})
                         print("bufferdictionary:",bufferBatchDictionary)
+                        
                         stockTable.delete_one(stockRow)
             print(bufferBatchDictionary)
+            return bufferBatchDictionary
         else:
             print("Not enough Quantity")
+            return ("Insufficient Quantity in Inventory!")
     else:
-        print("Product is unavailable")
+        print("Product is unavailable in Inventory!")
+        return ("Product is unavailable in Inventory!")
 
 
-outgoiningManagement()
+# outgoiningManagement()

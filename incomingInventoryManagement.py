@@ -9,11 +9,11 @@ quantityTable = database["Quantity"]
 transactionTable = database["Transaction"]
 
 
-def incomingInventoryManagement():
+def incomingInventoryManagement(productSerial, productName, sellerName, quantity, price, expiryDate):
 
-  productName, productSerial, batchNo, sellerName, quantity, price, inDate, expiryDate, existingQuantity = "", "", 0,"",50,"","","", 0
+  batchNo, inDate,existingQuantity = 0,"",  0
 
-  productSerial = "VG501"
+  # productSerial = "VG501"
 
   serialFind = stockTable.find({"ProductID":productSerial})
   quantityFind = quantityTable.find({"ProductID":productSerial})
@@ -36,12 +36,12 @@ def incomingInventoryManagement():
 
   print(maxQuantity)
 
-  if existingQuantity + quantity < maxQuantity:
+  if int(existingQuantity) + int(quantity) < maxQuantity:
     print("Inserting into DB")
     stockTable.insert_one({
       "ProductID": productSerial,
       "ProductName": productName,
-      "BatchNo" : batchNo,
+      "BatchNo" : str(batchNo),
       "SellerName" : sellerName,
       "Quantity" : quantity,
       "Price": price,
@@ -57,10 +57,12 @@ def incomingInventoryManagement():
       "OutDate": "",
       "Status" : "Buy"
     })
+    return ("Successfully Order has been Executed!")
 
   else:
     print("Warehouse Full")
+    return("Warehouse Full!!")
 
 
-if __name__ == "__main__":   
-  incomingInventoryManagement()
+# if __name__ == "__main__":   
+#   incomingInventoryManagement()

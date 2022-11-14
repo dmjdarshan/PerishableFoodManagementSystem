@@ -9,15 +9,13 @@ quantityTable = database["Quantity"]
 
 productID, productName, maxQuantity = "","",0
 
-def addNewSpace():
-    #testpurpose
-    productID = "SS200"
-    productName = "CANDY"
-    maxQuantity = 500
+def addNewSpace(productID, productName, maxQuantity):
+   
 
     quantityTable.insert_one({
         "ProductID" : productID,
         "ProductName": productName,
         "MaxQuantity": maxQuantity
     })
-    print("Inserted Successfully")
+    print("Successfully added new Space!")
+    return "Successfully added new Space!"
